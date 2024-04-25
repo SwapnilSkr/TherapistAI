@@ -1,0 +1,17 @@
+{
+  "name": "therapistai",
+  "version": "1.0.0",
+  "description": "An AI which helps people get mentally fit",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Swapnil Sarkar",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^9.2.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
