@@ -23,9 +23,6 @@ const app = express();
 app.post("/callback", line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
     .then((result) => {
-      console.log(result?.messages?.[0]?.text, "message");
-      const response = aiResponse(result?.messages?.[0]?.text);
-      console.log(response);
       return res.json(result);
     })
     .catch((err) => {
@@ -41,8 +38,12 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
+  // AI response
+  const response = aiResponse(event.message.text);
+  console.log(response);
+
   // create an echoing text message
-  const echo = { type: "text", text: event.message.text };
+  const echo = { type: "text", text: response?.choices?.[0].message?.content };
 
   // use reply API
   return client.replyMessage({
