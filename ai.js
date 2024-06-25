@@ -7,6 +7,7 @@ const together = new Together({
 });
 
 export const aiResponse = (content) => {
+  console.log(content);
   return together.chat.completions.create({
     messages: [{ role: "user", content }],
     model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
