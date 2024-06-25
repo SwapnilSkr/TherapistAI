@@ -32,14 +32,14 @@ app.post("/callback", line.middleware(config), (req, res) => {
 });
 
 // event handler
-function handleEvent(event) {
+async function handleEvent(event) {
   if (event.type !== "message" || event.message.type !== "text") {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
   // AI response
-  const response = aiResponse(event.message.text);
+  const response = await aiResponse(event.message.text);
 
   // create an echoing text message
   const echo = { type: "text", text: response?.choices?.[0].message?.content };
