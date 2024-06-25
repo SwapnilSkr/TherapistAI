@@ -23,9 +23,9 @@ const app = express();
 app.post("/callback", line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
     .then((result) => {
-      const response = aiResponse();
-      console.log(response, "response");
-      return res.json(response?.choices[0]?.message?.content);
+      const response = aiResponse(result[0].message.text);
+      console.log(response);
+      return res.json(result);
     })
     .catch((err) => {
       console.error(err);
