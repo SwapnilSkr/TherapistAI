@@ -1,6 +1,7 @@
 import * as line from "@line/bot-sdk";
 import express from "express";
 import dotenv from "dotenv";
+import { aiResponse } from "./ai";
 dotenv.config();
 
 // create LINE SDK config from env variables
@@ -22,8 +23,9 @@ const app = express();
 app.post("/callback", line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
     .then((result) => {
-      console.log(result[0]);
-      return res.json(result);
+      const response = aiResponse();
+      console.log(response.choices[0].message.content);
+      return res.json(response.choices[0].message.content);
     })
     .catch((err) => {
       console.error(err);
