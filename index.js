@@ -40,7 +40,6 @@ function handleEvent(event) {
 
   // AI response
   const response = aiResponse(event.message.text);
-  console.log(response);
 
   // create an echoing text message
   const echo = { type: "text", text: response?.choices?.[0].message?.content };
