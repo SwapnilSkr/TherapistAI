@@ -1,7 +1,7 @@
 import * as line from "@line/bot-sdk";
 import express from "express";
 import dotenv from "dotenv";
-import { aiResponse } from "./ai";
+import { aiResponse } from "./ai.js";
 dotenv.config();
 
 // create LINE SDK config from env variables
