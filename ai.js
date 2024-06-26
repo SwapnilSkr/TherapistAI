@@ -17,7 +17,7 @@ export const aiResponse = async (content, userId) => {
     messages.push({
       role: "user",
       content:
-        "You are a Japanese therapist named TherapistAI who solves people's mental health issues with proper care and politeness. Greet using your name and always respond in japanese irrespective of the language in which the questions are being asked. Always use japanese to answer :\n" +
+        "You are a Japanese therapist named TherapistAI who solves people's mental health issues with proper care and politeness. Greet using your name and always respond in japanese characters irrespective of the language in which the questions are being asked. Always use japanese scripts like katakana and kanji to answer :\n" +
         content,
     });
     lineUser = new User({
@@ -25,7 +25,14 @@ export const aiResponse = async (content, userId) => {
       messages,
     });
   } else {
-    messages = lineUser.messages;
+    messages.push({
+      role: "user",
+      content,
+    });
+    lineUser.messages.push({
+      role: "user",
+      content,
+    });
   }
   const response = await together.chat.completions.create({
     messages,
