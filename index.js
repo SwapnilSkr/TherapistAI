@@ -2,6 +2,7 @@ import * as line from "@line/bot-sdk";
 import express from "express";
 import dotenv from "dotenv";
 import { aiResponse } from "./ai.js";
+import { db } from "./db.js";
 dotenv.config();
 
 // create LINE SDK config from env variables
@@ -39,7 +40,7 @@ async function handleEvent(event) {
   }
 
   // AI response
-  const response = await aiResponse(event.message.text);
+  const response = await aiResponse(event.message.text, event.source.userId);
 
   // create an echoing text message
   const echo = { type: "text", text: response?.choices?.[0].message?.content };
@@ -53,6 +54,7 @@ async function handleEvent(event) {
 
 // listen on port
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(port, async () => {
+  await db(process.env.MONGODB_URI);
   console.log(`listening on ${port}`);
 });
